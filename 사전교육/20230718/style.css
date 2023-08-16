@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Chela+One&display=swap');
+
+* {
+    font-family: 'Chela One', cursive;
+}
+.title{
+    text-align: center;
+}
+form{
+    width: 500px;
+    margin: 00px auto;
+    border:1px solid gray;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input{
+    padding: 5px 10px;
+}
+
+table{
+    width: 500px;
+    margin: 0px auto;
+}
+
+td{
+    border-bottom: 1px dotted gray;
+    padding-top: 10px;
+}
+
+#tbl .row:hover{
+    background: gray;
+    color: white;
+    cursor: pointer;
+}
+/* #list .row:hover{
+    background: gray;
+    color: white;
+    cursor: pointer;
+} */

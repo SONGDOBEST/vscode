@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지검색</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="slick.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+
+
+</head>
+
+<body>
+    <div class="row my-5">
+        <div class="col">
+            <h1 class="text-center mb-5">이미지검색</h1>
+            <div class="mx-5">검색수: <span id="total"></span></div>
+            <div class="row justify-content-end">
+                <form name="frm" class="col-6 col-md-3 me-5 mb-3">
+                    <div class="input-group">
+                        <input name="search" value="모르페코" class="form-control">
+                        <button class="btn btn-primary">검색</button>
+                    </div>
+
+                </form>
+            </div>
+            <div id="div_image" class="row mx-5"></div>
+            <!-- <div class="text-center my-3">
+                <button id="prev" class="btn btn-primary px-3">이전</button>
+                <span id="page" class="mx-3">1/100</span>
+                <button id="next" class="btn btn-primary px-3">다음</button>
+            </div> -->
+        </div>
+    </div>
+</body>
+<!--이미지목록 템플릿-->
+<script id="temp_image" type="text/x-handlebars-template">
+    {{#each documents}}
+        <div class="col-6 col-md-6">
+            <div class="card">
+                <img index="{{@index}}" src="{{thumbnail_url}}" witdth="100%">
+                <!-- <a href="{{doc_url}}">
+                    <h5 class="text-center">{{display_sitename}}</h5>
+                </a> -->
+            </div>
+        </div>
+        <!-- Modal
+!-- <div class="modal fade" id="modal_image{{@index}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">{{display_sitename}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="{{image_url}}">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+    </div> -->
+    {{/each}}
+
+</script>
+<script>
+    // const getList = () => {
+
+    // } 화살표 함수
+    let search = $(frm.search).val();
+    let page = 1;
+    $("#div_image").on("click", "image", function () {
+        const index = $(this).attr("index");
+        $("modal_image" + index).modal("show");
+    })
+    $("#next").on("click", function () {
+        page++;
+        getList();
+    })
+    $("#prev").on("click", function () {
+        page--;
+        getList();
+    })
+    getList();
+    $(frm).on("submit", function (e) {
+        e.preventDefault();
+        search = $(frm.search).val();
+        // page=1;
+        getList();
+    });
+    function getList() {
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "https://dapi.kakao.com/v2/search/image",
+            headers: { "Authorization": "KakaoAK 769bf506ac7086d6941dc7858b5558f1" },
+            data: { query: search, size: 12, page: page },
+            success: function (data) {
+                console.log(data);
+                const temp = Handlebars.compile($("#temp_image").html());
+                const html = temp(data);
+                $("#div_image").html(html);
+                applySlider();
+                // $("#total").html(data.meta.pageable_count);
+
+                // const last = Math.ceil(data.meta.pageable_count / 12);
+                // $("#page").html(page + "/" + last);
+
+                // if (page == 1) {
+                //     $("#prev").attr("disabled", true);
+                // } else {
+                //     $("#prev").attr("disabled", false);
+                // }
+                // if (data.meta.is_end) {
+                //     $("#next").attr("disabled", true);
+                // } else {
+                //     $("#next").attr("disabled", false);
+                // }
+
+            }
+        });
+    }
+    function applySlider() {
+        $('#div_image').slick({
+            slide : 'div',  //슬라이드 되어야 할 태그 ex) div, li
+            infinite : true,  //무한 반복 옵션
+            slidesToShow :6,  // 한 화면에 보여질 컨텐츠 개수
+            slidesToScroll : 1,  //스크롤 한번에 움직일 컨텐츠 개수
+            speed : 100,  // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+            arrows : true,  // 옆으로 이동하는 화살표 표시 여부
+            dots : true,  // 스크롤바 아래 점으로 페이지네이션 여부
+            autoplay : true,  // 자동 스크롤 사용 여부
+            autoplaySpeed : 5000,  // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+            pauseOnHover : true,  // 슬라이드 이동시 마우스 호버하면 슬라이더 멈추게 설정
+            vertical : false,  // 세로 방향 슬라이드 옵션
+            prevArrow : "<button type='button' class='slick-prev'><div style='font-size:1.5rem;color:white;'>&lt;</div></button>",
+            nextArrow : "<button type='button' class='slick-next'><div style='font-size:1.5rem;color:white;'>&gt;</div></button>",
+            dotsClass : "slick-dots",  //아래 나오는 페이지네이션(점) css class 지정
+            draggable : true,  //드래그 가능 여부 
+            responsive : [  // 반응형 웹구현 옵션
+                {
+                    breakpoint : 960,  //화면 사이즈 960px
+                    settings : { 
+                        slidesToShow : 4
+                    }  //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                }, {
+                    breakpoint : 768,  //화면 사이즈 768px
+                    settings : {
+                       slidesToShow : 4
+                    }  //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                }
+            ]
+        });
+    }
+</script>
+
+</html>

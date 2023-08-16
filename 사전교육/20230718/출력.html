@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출력</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script> 
+</head>
+<body>
+  <!--목록 출력할 영역-->
+  <div id="posts"></div>
+  <!--출력할 템플릿-->
+  <script id="temp" type="text/x-handlebars-template">
+    {{#each .}}
+        <h3>{{id}}:{{title}}</h3>
+        
+       
+        <hr>
+    {{/each}}
+  </script>
+</body>
+<script>
+    getPosts();
+function getPosts(){
+    $.ajax({
+        type:"get",
+        url:"https://jsonplaceholder.typicode.com/posts",
+        dateType:"json",
+        success:function(data){
+            const rows=data.filter(post=>post. id<=5);
+            console.log(rows);
+            //1.템플릿 컴파일
+            let temp=Handlebars.compile($("#temp").html());
+            //2.템플릿에 데이터넣기
+            let html = temp(rows);
+            //3.출력영역 html 넣기
+            $("#posts").html(html);
+        }
+    });
+}
+</script>
+</html>

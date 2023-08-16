@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <legend>계산기</legend>
+        <input type="number" id="num1"/><br/>
+
+        <select id ="cal">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+            <option>%</option>
+        </select><br/>
+
+        <input type="number" id="num2"/><br/>
+        <input type="button" value="계산" onclick="cal()"/><br/>
+        <h1 id="result"></h1>
+    </fieldset>
+</body>
+
+<script>
+    function cal(){
+        let num1 = Number(document.getElementById("num1").value);
+        let num2 = Number(document.getElementById("num2").value);
+        let cal = document.getElementById("cal").value;
+
+        if(cal == "+") {
+            document.getElementById("result").innerHTML = num1 + num2;
+        }else if(cal == "-") {
+            if(num1>num2){
+                document.getElementById("result").innerHTML = num1 - num2;
+            }else if(num2>num1){
+                document.getElementById("result").innerHTML = num2 - num1;
+            }else{
+                document.getElementById("result").innerHTML = num1 - num2;
+            }
+        }else if(cal == "*") {
+            document.getElementById("result").innerHTML = num1 * num2;
+        }else if(cal == "/") {
+            document.getElementById("result").innerHTML = num1 / num2;
+        }else if(cal == "%") {
+            document.getElementById("result").innerHTML = num1 % num2;
+        }
+    } 
+    
+
+</script>
+</html>

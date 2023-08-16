@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <legend>학점계산기</legend>
+        국어 : <input type="number" id="kor"/><br/><br/>
+        영어 : <input type="number" id="eng"/><br/><br/>
+        수학 : <input type="number" id="mat"/><br/><br/>
+        <input type="button" value="학점출력" onclick="grade()"/><br/>
+        <h1 id="result"></h1>
+        
+    </fieldset>
+</body>
+
+<script>
+    function grade() {
+        let kor = Number(document.getElementById("kor").value);
+        let eng = Number(document.getElementById("eng").value);
+        let mat = Number(document.getElementById("mat").value);
+
+        let sum = (kor+eng+mat);
+        let avg = (sum/3);
+        let result = document.getElementById("result");
+
+        if(avg>=90){
+            if(avg>=95){
+                result.innerHTML = "학점은 A+입니다."
+            }else{
+                result.innerHTML = "학점은 A입니다."
+            }
+            
+        }else if(avg>=80){
+            result.innerHTML = "학점은 B입니다."
+        }else if(avg>=70){
+            result.innerHTML = "학점은 C입니다."
+        }else if(avg>=60){
+            result.innerHTML = "학점은 D입니다."
+        }else{
+            result.innerHTML = "학점은 F입니다."
+        }
+    }// 반올림 : Math.round()
+     // document.getElementById("result"); 코드를 함수로 설정미리해두면
+     // 간단하게 표현 가능 위 처럼
+
+
+</script>
+</html>

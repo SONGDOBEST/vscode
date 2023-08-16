@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주소관리</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script> //핸들바, JSON데이터 출력시
+    사용
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+    <h1 class="title">학생관리</h1>
+    <form name="frm">
+        <input name="scode" placeholder="학번" size="10" readonly maxlength="6">
+        <hr>
+        <input name="sname" placeholder="이름" size="10">
+        <hr>
+        <select name="dept">
+            <option value="10" selected>컴공과</option>
+            <option value="11">전자과</option>
+            <option value="12">기계과</option>
+        </select>
+        <hr>
+        <input name="year" value="1" type="radio" checked>1학년
+        <input name="year" value="2" type="radio">2학년
+        <input name="year" value="3" type="radio">3학년
+        <hr>
+        <input type="submit" value="학생등록">
+        <input type="reset" value="등록취소">
+    </form>
+    <hr>
+    <h1 class="title">학생목록</h1>
+    
+    <!--목록을 출력할 템플릿-->
+    <script id="temp" type="text/x-handlebars-template">
+        <table>
+        {{#each .}}
+            <tr index="{{@index}}" sname="{{sname}}">
+                <td>{{scode}}</td>
+                <td>{{sname}}</td>
+                <td>{{dept}}</td>
+                <td>{{year}}학년</td>
+                <td><button>삭제</button></td>
+            </tr>
+        {{/each}}
+    </table>
+    </script>
+
+</body>
+<script>
+    let scode = 202304;
+    $(frm.scode).val(scode);
+    //학생데이터 저장 (JSON)
+    let students = [
+        { scode: 202301, sname: '이현우', dept: '11', year: 2 },
+        { scode: 202302, sname: '조준상', dept: '12', year: 1 },
+        { scode: 202303, sname: '조향덕', dept: '10', year: 3 }
+    ]
+    //삭제버튼 클릭시
+    $("#list").on("click", "tr td button", function () {
+        let tr = $(this).parent().parent();
+        let index = tr.attr("index");
+
+        let sname1 = tr.attr("sname");
+        let sname2 = tr.find(" .sname").text();
+        if (confirm(`${sname1} 학생을 삭제하시겠습니까?`)) {
+            students.splice(index, 1);
+            getList();
+        }
+
+    });
+    //학생목록 출력함수
+    getList();
+    function getList() {
+        let temp = Handlebars.compile($("#temp").html());
+        $("#list").html(temp(students));
+    }
+    //폼이 submit 될 때 유효성체크
+    $(frm).on("submit", function (e) {
+        e.preventDefault();
+        let scode = $(frm.scode).val();
+        let sname = $(frm.sname).val();
+        let dept = $(frm.dept).val();
+        let year = $(frm.year).val();
+        if (sname == "") {
+            alert("이름을 입력하세요!");
+            $(frm.sname).focus();
+        } else if (sname.replace(/[가-힣]/g, '')) {
+            alert("이름을 한글로 입력하세요!");
+            $(frm.sname).val("")
+            $(frm.sname).focus();
+        } else {
+            if (confirm("새로운 학생을 등록하시겠습니까?")) {
+                let data = { scode: scode, sname: sname, dept: dept, year: year };
+                students.push(data);
+                getList();
+                scode++;
+                $(frm.scode).val(scode);
+                $(frm.sname).val("");
+                $(frm.sname).focus();
+            } else {
+                alert("등록이 취소되었습니다.")
+            }
+        }
+    });
+</script>
+
+</html>

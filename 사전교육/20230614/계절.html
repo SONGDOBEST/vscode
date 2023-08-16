@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <legend>좋아하는 계절</legend>
+        <h3>[1] 봄 [2] 여름 [3] 가을 [4] 겨울</h3>
+        <input type="text" id="season" placeholder="숫자를 입력해주세요"/> 
+        <input type="button" value="확인" onclick="input()"/>
+        <h1 id="result">결과 :</h1>
+    </fieldset>
+</body>
+<!-- h3 나 h1 의 기능이 무엇인지? -->
+<script>
+    function input() {
+        let season = document.getElementById("season").value;
+        if(season == 1 || season == "봄"){
+            document.getElementById("result").innerHTML = "결과 : 봄";
+        }else if(season == 2 || season == "여름"){
+            document.getElementById("result").innerHTML = "여름";
+        }else if(season == 3 || season == "가을"){
+            document.getElementById("result").innerHTML = "가을";
+        }else if(season == 4 || season == "겨울"){
+            document.getElementById("result").innerHTML = "겨울";
+        }// ||(달러표시) : or의 기능 && : and 의 기능
+    }
+</script>
+</html>

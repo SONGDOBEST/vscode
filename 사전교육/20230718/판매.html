@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>첫번째예제</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1 class="title">상품관리</h1>
+    <!-- 입력폼 -->
+    <form name="frm">
+        <input name="code" placeholder="상품코드" size="10">
+        <hr>
+        <input name="name" placeholder="상품이름" size="50">
+        <hr>
+        <input name="price" type="number" size="10" step="1000">원
+        <hr>
+        <input type="submit" value="상품등록">
+        <input type="reset" value="등록취소">
+    </form>
+    <h2 class="title">상품목록</h1>
+        <!--상품목록이 출력될 공간-->
+    <div id="list"></div>
+    <script id="temp2" type="text/x-handlebars-template">
+        <table>
+        {{#each .}}
+            <tr class="row" index="{{@index}}">
+                <td>{{code}}</td>
+                <td class="name">{{name}}</td>
+                <td>{{price}}</td>
+                <td><button>삭제</button></td>
+            </tr>
+        {{/each}}
+     </table>
+    </script>
+        <table id="tbl"></table>
+</body>
+<script>
+    let code = 103;
+    $(frm.code).val(code);
+
+    // 각행의 삭제버튼을 누를경우
+    $("#tbl").on("click","tr td button",function(){
+        let row = $(this).parent().parent();
+        let code = row.find(".code").text();
+        let index = row.attr("index");
+        if(confirm(code+"번을 삭제하시겠습니까?")){
+            products.splice(index,1 );
+            getList();
+        }
+    });
+    // 상품 JSON DATA
+    let products = [
+        { code: 100, name: '오브제 냉장고', price: 2500000 },
+        { code: 101, name: '오브제 세탁기', price: 1500000 },
+        { code: 102, name: '오브제 스타일러', price: 1200000 }
+    ]
+    getList();
+    //목록을 출력하는 함수
+    function getList() {
+        let html = "";
+        products.forEach((p,index) => {
+            //   console.log(p);
+            html += `<tr class= 'row' index=${index}>`;
+            html += `<td class= 'code'>${p.code}</td>`;
+            html += `<td>${p.name}</td>`;
+            html += `<td>${p.price}</td>`;
+            html += "<td><button>삭제</button></td>";
+            html += "</tr>";
+        });     
+        $("#tbl").html(html);
+    }
+
+    //폼이 서밋될때 유효성 체크
+    $(frm).on("submit", function (event) {
+        event.preventDefault();
+        let code = $(frm.code).val();
+        let name = $(frm.name).val();
+        let price = $(frm.price).val();
+        if (code == "") {
+            alert("상품코드를 입력하세요!")
+            $(frm.code).focus();
+        } else if (name == "") {
+            alert("상품코드를 입력하세요!")
+            $(frm.name).focus();
+        } else if (price == "") {
+            alert("상품가격을 입혁하세요!")
+            $(frm.name).focus();
+        } else {
+            if (confirm("새로운 상품을 등록하실래요?")) {
+                const product = { code: code, name: name, price: price };
+                products.push(product);
+                getList();
+                alert(`상품코드:${code}\n상품이름:${name}\n상품가격:${price}\n등록완료!`);
+                code++;
+                $(frm.code).val(code);
+            } else {
+                alert("등록이 취소되었습니다.");
+            }
+        }
+    });
+</script>
+
+</html>
+

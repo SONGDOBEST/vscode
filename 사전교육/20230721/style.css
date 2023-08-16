@@ -1,0 +1,51 @@
+@import url();
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    font-family: 'omyu_pretty';
+}
+.title{
+    text-align: center;
+}
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;	
+  }
+form{
+    width: 500px;
+    margin: 00px auto;
+    border:1px solid gray;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input{
+    padding: 5px 10px;
+}
+
+table{
+    width: 500px;
+    margin: 0px auto;
+}
+
+td{
+    border-bottom: 1px dotted gray;
+    padding-top: 10px;
+}
+
+#tbl .row:hover{
+    background: gray;
+    color: white;
+    cursor: pointer;
+} */
+/* #list .row:hover{
+    background: gray;
+    color: white;
+    cursor: pointer;
+}

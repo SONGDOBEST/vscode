@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+</body>
+<script>
+    let kor = 80;
+    let mat = 90;
+    let eng = 70;
+    let sum = kor+mat+eng;
+    let aug = sum/3;
+    alert('평균 : ' + aug); // alert는 알림창, ex 로그인성공
+
+    if(aug >= 90){
+        alert('학점은 A입니다.');
+    } else if(aug >= 80){
+        alert('학점은 B입니다.'); // else if는 앞의 조건이 참인 경우만 실행
+    } else if(aug >= 70){        // 그래서 'if, else if, else'는 한 세트
+        alert('학점은 C입니다.');
+    } else if(aug >= 60){
+        alert('학점은 D입니다.');
+    } else{
+        alert('학점은 F입니다.');
+    }
+
+    if(aug >= 90){
+        alert('학점은 A입니다.');
+    }
+    if(aug < 90 && aug >= 80){ // &&는 두 조건이 전부 참이여야 참
+        alert('학점은 B입니다.') // aug가 90미만이고, 80이상 경우 
+    }
+    if(aug < 80 && aug >= 70){
+        alert('학점은 C입니다.');
+    }
+    //else {
+    //    alert('학점은 F입니다.')
+    //}
+    if(aug < 60){
+        alert('학점은 F입니다.')
+    }
+
+    // 95점 이상일 때는 A+
+    // 85점 이상일 때는 B+
+    // 75점 이상일 때는 C+
+    // 65점 이상일 때는 D+
+
+    if(aug >= 95){
+        alert('학점은 A+입니다.');
+    } else if(aug >= 90 && aug < 95){
+        alert('학점은 A입니다.');
+    } else if(aug >= 85 && aug < 90){
+        alert('학점은 B+입니다.');
+    } else if(aug >=80 && aug < 85){
+        alert('학점은 B입니다.');
+    } else if(aug >=75 && aug <80){
+        alert('학점은 C+입니다.');
+    } else if(aug >=70 && aug <75){
+        alert('학점은 C입니다.');
+    } else if(aug >=65 && aug <70){
+        alert('학점은 D+입니다');
+    } else{
+        alert('학점은 F입니다.')
+    } // 틀린건 아닌데, 비효율적인 코드
+    
+    // 중첩 if문
+    if(aug >= 90){
+        if(aug >= 95){
+            alert('학점은 A+입니다.')
+        } else {
+            alert('학점은 A입니다.')
+        }
+    } 
+    else if (aug >= 80){
+        if(aug >= 85){
+            alert('학점은 B+입니다.')
+        } else {
+            alert('학점은 B입니다.')
+        }
+    }
+
+    if(aug >= 95){
+        if(aug >= 95){
+            alert('학점은 A+입니다.')
+        }
+        alert('학점은 A입니다.')
+    } // A+과 A 둘 다 나옴. 그래서 위 처럼 else를 중첩 if문 안에 넣음
+    
+
+</script>
+
+</html>
