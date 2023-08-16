@@ -13,3 +13,14 @@ for i, j in zip(a, b):
     print(i)
     print(j)
     print(i,":",j)
+
+c = ["이", "강", "현", "아", "우", "지"]
+for i in range(0,6,2):
+    print(c[i], end="")
+for j in range(1,6,2):
+    print(c[j], end="")
+print()
+print("==========================")
+d = [[1, "a"], [2, "b"], [3, "c"]]
+for i, j in d:
+    print(i, j)
