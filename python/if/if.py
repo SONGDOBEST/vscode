@@ -13,13 +13,13 @@
 number = eval(input("숫자를 입력하세요: ")) #int를 붙이든, input함수를 eval로 감싸든 하나를 해야 변수를 "숫자"로 판별함. 안하면 기본적으로 입력받은 값은 "str" 변수가 됨
 print(type(number))
 if type(number) == float:
-    print("실수입니다.")
+    print(number, ": 실수입니다.")
 else:
     if number == 0:
-        print("0 입니다.")
+        print(number, "입니다.")
     elif number % 2 == 0:
-        print("짝수입니다")
+        print(number, ": 짝수입니다.")
     else:
-        print("홀수입니다")
+        print(number, ": 홀수입니다")
 
 
