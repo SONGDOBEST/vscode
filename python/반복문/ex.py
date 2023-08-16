@@ -10,7 +10,7 @@ b = int(input("몇 단 까지 할까요? : "))
 #     print("")
 
 # 세로형
-for i in range(a,b+1):
-    print(i,"단")
-    for j in range(1,10):
-        print(i,"X",j,"=",i*j)
+# for i in range(a,b+1):
+#     print(i,"단")
+#     for j in range(1,10):
+#         print(i,"X",j,"=",i*j)
