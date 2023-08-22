@@ -30,8 +30,8 @@ def scroll_fun():
 
 # 브라우저 - selenium
 driver = webdriver.Chrome() # 크롬으로
-# 주소 - 옥냥이 유튜브 메인
-driver.get("https://www.youtube.com/@rooftopcat_official")
+# 주소 - 트렌드
+driver.get("https://www.youtube.com/feed/trending?bp=6gQJRkVleHBsb3Jl")
 
 # 무한 스크롤 (모든 정보 다 가져와야 하므로)
 scroll_fun()
