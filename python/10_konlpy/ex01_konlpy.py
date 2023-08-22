@@ -26,6 +26,8 @@ for word, tag in okt.pos(text):
 
 word_list=[]
 # 명사 ,형용사만 따로 출력 
+for 타이틀 리스트에서 하나씩 뺴기
+
 for word, tag in okt.pos(text):
     # if tag in 'Noun': #명사만
     # if tag in 'Adjective': #형용사만

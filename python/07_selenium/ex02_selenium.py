@@ -5,13 +5,13 @@ import time
 # 크롬 브라우저 실행 
 driver = webdriver.Chrome()
 # 접속할 주소 
-driver.get("https://www.example.com/")
+driver.get("https://www.youtube.com/")
 
 # p 태그 요소만 접근하기 
-# p_element = driver.find_element(By.TAG_NAME, 'p')
-# print(p_element)
-# print(type(p_element))
-# print(p_element.text)
+p_element = driver.find_element(By.TAG_NAME, 'p')
+print(p_element)
+print(type(p_element))
+print(p_element.text)
 
 p_elements = driver.find_elements(By.TAG_NAME, 'p')
 print(type(p_elements))

@@ -22,11 +22,15 @@ wc = WordCloud(font_path='malgun')
 # counter로 분석한 데이터를 워드클라우드로 변경
 result = wc.generate_from_frequencies(word_list_count)
 
-# matplotlib로 이미지 출력
-plt.axis('off') #x, y축은 필요없으므로 생략 ??
+# matplotlib로 이미지 출력 => 출력을 위해서 뜸. (팝업으로 워드클라우드가 뜸)
+plt.axis('off') #x, y축은 필요없으므로 생략 => 기본적으로 matplotlib는 그래프를 위한 것이므로.
 
 # 결과를 이미지로 출력할 준비
 plt.imshow(result)
 
 #이미지 출력
 plt.show()
+
+# 워드클라우드 파일 저장
+wc.to_file('wordcloud_result.png')
+

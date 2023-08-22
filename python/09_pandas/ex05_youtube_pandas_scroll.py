@@ -54,12 +54,14 @@ for title in titles:
         # 조회수 1,000 미만
         else:
             hits = int(hits)
+        
+        if title.text not in title_list:
+            title_list.append(title.text)
+            hits_list.append(hits)
         #print("제목", title.text)
         #print("조회수", hits)
         # 제목, 조회수를 각각 리스트에 담기
         # append(): 리스트에 데이터 추가
-        title_list.append(title.text)
-        hits_list.append(hits)
 
 crawling_result = {
     "title": title_list,
